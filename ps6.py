@@ -109,8 +109,9 @@ class Message(object):
         letter += letter.upper()
         letter_shift += letter_shift.upper()
         shifted_dict = {}
-        for char in letter:
-            shifted_dict[char] = 
+        for char in range(len(letter)):
+            shifted_dict[char] = letter_shift[char]
+        return shifted_dict
         
 
     def apply_shift(self, shift):
