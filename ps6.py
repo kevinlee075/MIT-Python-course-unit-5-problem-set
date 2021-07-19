@@ -115,8 +115,9 @@ class Message(object):
         
         shifted_dict = {}
         
-        for char in range(len(letter)):                                        #make the original letters as keys and the shifted letters as values
-            shifted_dict[char] = letter_shift[char]
+        for num in range(52):
+                                                                               #make the original letters as keys and the shifted letters as values
+            shifted_dict[letter[num]] = letter_shift[num]
             
         return shifted_dict
         
@@ -133,7 +134,19 @@ class Message(object):
         Returns: the message text (string) in which every character is shifted
              down the alphabet by the input shift
         '''
-        pass #delete this line and replace with your code here
+        shifted_text = ''
+        
+        shifted_dictionary = self.build_shift_dict(shift)                      #use build_shift_dict function to input the shifted dictionary
+        
+        for char in self.message_text:                                         #if a certain character is lower/uppercase, use the dictionary to change that character
+            
+            if char in string.ascii_letters:
+                shifted_text += shifted_dictionary[char]
+                
+            else:                                                              #if that character is other things, directly copy it
+                shifted_text += char
+        
+        return shifted_text
 
 class PlaintextMessage(Message):
     def __init__(self, text, shift):
