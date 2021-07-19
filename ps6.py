@@ -102,15 +102,22 @@ class Message(object):
         Returns: a dictionary mapping a letter (string) to 
                  another letter (string). 
         '''
-        letter = string.ascii_lowercase
-        letter_shift = ''
-        for char_num in range(len(letter)):
-            letter_shift += (letter*2)[char_num + shift]
-        letter += letter.upper()
-        letter_shift += letter_shift.upper()
+        letter = string.ascii_lowercase                                        #first put in all lowercases
+        
+        letter_shift = ''                                                      #initially, put an empty string
+        
+        for char_num in range(len(letter)):                                    #first copy lowercases one time so that to prevent shifted letters which are more than 25th
+            letter_shift += (letter*2)[char_num + shift]                       #use for loop to shift every character based on the parameter
+            
+        letter += letter.upper()                                               #also include the uppercases
+        
+        letter_shift += letter_shift.upper()                                   #the shifted string should also includes uppercases
+        
         shifted_dict = {}
-        for char in range(len(letter)):
+        
+        for char in range(len(letter)):                                        #make the original letters as keys and the shifted letters as values
             shifted_dict[char] = letter_shift[char]
+            
         return shifted_dict
         
 
