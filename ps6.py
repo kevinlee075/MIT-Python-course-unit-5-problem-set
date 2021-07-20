@@ -167,6 +167,7 @@ class PlaintextMessage(Message):
         code is repeated
         '''
         Message.__init__(self, text)
+        
         self.shift = shift
 
     def get_shift(self):
@@ -183,7 +184,7 @@ class PlaintextMessage(Message):
         
         Returns: a COPY of self.encrypting_dict
         '''
-        encrypting_dict = self.build_shift_dict(self.shift)
+        self.encrypting_dict = self.build_shift_dict(self.shift)
         
         return self.encrypting_dict.copy()
 
@@ -193,7 +194,7 @@ class PlaintextMessage(Message):
         
         Returns: self.message_text_encrypted
         '''
-        message_text_encrypted = self.apply_shift(self.shift)
+        self.message_text_encrypted = self.apply_shift(self.shift)
         
         return self.message_text_encrypted
 
@@ -208,7 +209,15 @@ class PlaintextMessage(Message):
 
         Returns: nothing
         '''
-        pass #delete this line and replace with your code here
+        self.old_shift = self.shift                                            #if I call this function, \
+                                                                               #it means that we should only shift the text using the difference of new shift and previous one
+        self.shift = shift
+        
+        new_shift = self.shift - self.old_shift
+        
+        self.encrypting_dict = self.build_shift_dict(new_shift)
+        
+        self.message_text_encrypted = self.apply_shift(new_shift)
 
 
 class CiphertextMessage(Message):
@@ -222,7 +231,7 @@ class CiphertextMessage(Message):
             self.message_text (string, determined by input text)
             self.valid_words (list, determined using helper function load_words)
         '''
-        pass #delete this line and replace with your code here
+        Message.__init__(self, text)
 
     def decrypt_message(self):
         '''
