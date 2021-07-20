@@ -183,7 +183,8 @@ class PlaintextMessage(Message):
         
         Returns: a COPY of self.encrypting_dict
         '''
-        pass #delete this line and replace with your code here
+        encrypting_dict = self.build_shift_dict(self.shift)
+        return self.encrypting_dict.copy()
 
     def get_message_text_encrypted(self):
         '''
