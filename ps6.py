@@ -249,21 +249,31 @@ class CiphertextMessage(Message):
         Returns: a tuple of the best shift value used to decrypt the message
         and the decrypted message text using that shift value
         '''
-        best_shift = None
-        perfect_decrypted_text = ''
-        best_real_word = 0
+        best_shift = None                                                      #initially, there's no value on best_shift
+        
+        perfect_decrypted_text = ''                                            #also nothing on the best shifted text initially
+        
+        best_real_word = 0                                                     #real_word should be compared to best_real_word later
+        
         real_word = 0
-        for s in range(26):
-            decrypted_text = self.apply_shift(s)
-            seperated_word = decrypted_text.split()
-            for words in seperated_word:
-                if is_word(self.get_valid_words(), words):
-                    real_word += 1
-            if real_word > best_real_word:
-                best_real_word = real_word
-                best_shift = 26 - s
+        
+        for s in range(26):                                                    #examine 26 results of s
+            
+            decrypted_text = self.apply_shift(s)                               #use s as a parameter and use the apply_shift function in the class Message to get the shifted message
+            
+            seperated_word = decrypted_text.split()                            #seperate all words in the decrypted_text
+            
+            for words in seperated_word:                                       #check whether every word in the seperated_word is a real word
+                if is_word(self.get_valid_words(), words):                     #use the is_word function
+                    real_word += 1                                             #sum up the number of real words
+                    
+            if real_word > best_real_word:                                     #make a comparison
+                
+                best_real_word = real_word                                     #if real_word is bigger, replace the best one with the new real_word
+                best_shift = s                                                 #collect the best shift and most suitable decrypted text
                 perfect_decrypted_text = decrypted_text
-        return (best_shift, perfect_decrypted_text)
+                
+        return (best_shift, perfect_decrypted_text)                            #form them as a tuple based the requirement
         
                 
             
