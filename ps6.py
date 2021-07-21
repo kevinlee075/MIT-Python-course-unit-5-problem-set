@@ -250,6 +250,7 @@ class CiphertextMessage(Message):
         and the decrypted message text using that shift value
         '''
         best_shift = None
+        perfect_decrypted_text = ''
         best_real_word = 0
         real_word = 0
         for s in range(26):
@@ -260,7 +261,9 @@ class CiphertextMessage(Message):
                     real_word += 1
             if real_word > best_real_word:
                 best_real_word = real_word
-                best_shift = s
+                best_shift = 26 - s
+                perfect_decrypted_text = decrypted_text
+        return (best_shift, perfect_decrypted_text)
         
                 
             
