@@ -275,6 +275,8 @@ class CiphertextMessage(Message):
                 
         return (best_shift, perfect_decrypted_text)                            #form them as a tuple based the requirement
         
+
+
 def decrypt_story():
     '''
     Now that you have all the pieces to the puzzle,
@@ -287,7 +289,11 @@ def decrypt_story():
     use decrypt_message to return the appropriate shift value and
     unencrypted story string.
     '''                
-            
+    encrypted_string = get_story_string()                                      #input the primitive text using get_story_string function
+    
+    cipher_story = CiphertextMessage(encrypted_string)
+
+    return cipher_story.decrypt_message()                                      #call the function of decrypt_message in the subclass 'CiphertextMessage'        
 
 #Example test case (PlaintextMessage)
 plaintext = PlaintextMessage('hello', 2)
